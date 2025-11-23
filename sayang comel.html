@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="ms">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Baby Manja Kesayangan Saya</title>
+  <style>
+    :root{
+      --bg: #fff8fb;
+      --card: #fff;
+      --primary: #ff6fa3;
+      --accent: #ffd1e8;
+      --muted: #9b9b9b;
+      --shadow: 0 8px 30px rgba(16,24,40,.08);
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Noto Sans', 'Helvetica Neue', Arial;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:linear-gradient(180deg,var(--bg),#fff);color:#223;}
+    .container{max-width:980px;margin:36px auto;padding:20px}
+
+    header{display:flex;gap:16px;align-items:center}
+    .avatar{width:120px;height:120px;border-radius:24px;overflow:hidden;flex:0 0 120px;box-shadow:var(--shadow);border:6px solid rgba(255,255,255,.8)}
+    .avatar img{width:100%;height:100%;object-fit:cover;display:block}
+    h1{font-size:28px;margin:0 0 6px}
+    p.lead{margin:0;color:var(--muted)}
+
+    .card{background:var(--card);border-radius:18px;padding:18px;box-shadow:var(--shadow);}
+    .meta{display:flex;gap:12px;margin-top:12px}
+    .chip{background:var(--accent);padding:6px 10px;border-radius:999px;font-weight:600}
+
+    /* gallery */
+    .gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:12px;margin-top:16px}
+    .photo{border-radius:12px;overflow:hidden;height:120px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#fff,#ffeef7);box-shadow:0 6px 18px rgba(16,24,40,.06);position:relative}
+    .photo img{width:100%;height:100%;object-fit:cover}
+    .caption{font-size:13px;color:var(--muted);margin-top:8px;text-align:center}
+
+    /* heart button */
+    .love{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:999px;background:linear-gradient(90deg,var(--primary),#ff8ac3);color:white;font-weight:700;border:none;cursor:pointer;box-shadow:0 8px 20px rgba(255,111,163,.18)}
+    .love .pulse{width:10px;height:10px;border-radius:50%;background:#fff;opacity:.85;animation:beat 1s infinite}
+    @keyframes beat{0%{transform:scale(1)}50%{transform:scale(1.6)}100%{transform:scale(1)}}
+
+    footer{margin-top:24px;text-align:center;color:var(--muted);font-size:13px}
+
+    /* responsive */
+    @media(min-width:720px){h1{font-size:34px}}
+
+    /* confetti canvas */
+    #confetti{position:fixed;left:0;top:0;right:0;bottom:0;pointer-events:none}
+
+    /* playful title */
+    .title-emoji{display:inline-block;transform:translateY(-2px)}
+  </style>
+</head>
+<body>
+  <canvas id="confetti"></canvas>
+  <div class="container">
+    <header class="card">
+      <div style="display:flex;gap:16px;align-items:center">
+        <div class="avatar" id="avatar">
+          <!-- Fixed image -->
+          <img src="comel 7.jpeg" alt="Baby Manja"/>
+        </div>
+        <div>
+          <h1>Baby Manja Kesayangan Saya <span class="title-emoji">🥰</span></h1>
+          <p class="lead">For my cutest, prettiest & adorable ex Girlfriend <3 </p>
+          <div class="meta">
+            <div class="chip">Manja</div>
+            <div class="chip">Kesayangan BamBam</div>
+            <div class="chip">Bushuk </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <section style="margin-top:18px" class="card">
+      <h3>About</h3>
+      <p>This little space is for someone who once made my days softer and my heart a little warmer. She was the girl who could make me smile just by showing up. Even though life moved differently for us, the memories still feel sweet.</p>
+      <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap">
+        <label class="love" for="likeBtn" title="Love button"><span class="pulse"></span>Sayang</label>
+      </div>
+    </section>
+
+    <section class="card">
+      <h3>Gallery</h3>
+      <div class="gallery" id="gallery">
+        <!-- placeholder photos -->
+        <div class="photo"><img src="comel 8.jpeg" alt="Sweet 1"></div>
+        <div class="photo"><img src="comel.jpeg" alt="Sweet 2"></div>
+        <div class="photo"><img src="comel 3.jpeg" alt="Sweet 3"></div>
+        <div class="photo"><img src="comel 5.jpeg" alt="Sweet 4"></div>
+		<div class="photo"><img src="comel 6.jpeg" alt="Sweet 5"></div>
+		<div class="photo"><img src="comel 2.jpeg" alt="Sweet 6"></div>
+      </div>
+    </section>
+
+    <section style="margin-top:18px" class="card">
+      <h3>Notes & Milestones</h3>
+      <ul>
+        <li>Thankyou sayang sebab masih borak dengan saya dan masih mencintai saya, saya sayang awak sangat sangat and please jangan malas malas, belajar rajin rajin okie <3</li>
+      </ul>
+    </section>
+
+    <footer>
+      <div class="card" style="display:inline-block;padding:12px 16px;border-radius:14px">
+        <strong>Made with love</strong> — Keep it safe
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // small interactive features: click gallery to fullscreen
+    const gallery = document.getElementById('gallery');
+
+    function addPhoto(src){
+      const div = document.createElement('div');
+      div.className='photo';
+      const img = document.createElement('img');
+      img.src = src;
+      img.alt = 'Baby Pic';
+      img.onclick = ()=> openFullscreen(src);
+      div.appendChild(img);
+      gallery.prepend(div);
+    }
+
+    document.addEventListener('dragover', e=>e.preventDefault());
+    document.addEventListener('drop', e=>{
+      e.preventDefault();
+      const f = e.dataTransfer.files && e.dataTransfer.files[0];
+      if(f && f.type.startsWith('image')){
+        const url = URL.createObjectURL(f);
+        addPhoto(url);
+      }
+    });
+
+    function openFullscreen(src){
+      const win = window.open('', '_blank');
+      win.document.write(`<html><head><title>Baby Pic</title><meta name=viewport content=\"width=device-width,initial-scale=1\"></head><body style=\"margin:0;display:flex;align-items:center;justify-content:center;background:#111\"><img src=\"${src}\" style=\"max-width:100%;max-height:100vh;\"></body></html>`);
+    }
+
+    // little confetti for fun
+    (function(){
+      const c = document.getElementById('confetti');
+      const ctx = c.getContext('2d');
+      function resize(){c.width=innerWidth;c.height=innerHeight}
+      resize();window.addEventListener('resize',resize);
+      const pieces=[];const colors=['#ff6fa3','#ffd1e8','#fff3f8','#ffb3d1'];
+      function spawn(){for(let i=0;i<20;i++){pieces.push({x:Math.random()*c.width,y:-10,vy:2+Math.random()*4,ax:(Math.random()-.5)/3,size:6+Math.random()*10,color:colors[Math.floor(Math.random()*colors.length)],rot:Math.random()*6})}}
+      function update(){ctx.clearRect(0,0,c.width,c.height);for(let i=pieces.length-1;i>=0;i--){const p=pieces[i];p.vy+=0.05;p.x+=p.ax;p.y+=p.vy;p.rot+=0.05;ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.rot);ctx.fillStyle=p.color;ctx.fillRect(-p.size/2,-p.size/2,p.size,p.size);ctx.restore();if(p.y>c.height+20)pieces.splice(i,1)}if(Math.random()<0.02)spawn();requestAnimationFrame(update)}
+      spawn();update();
+    })();
+
+    document.querySelectorAll('.love').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        btn.animate([{transform:'scale(1)'},{transform:'scale(1.06)'},{transform:'scale(1)'}],{duration:350});
+      });
+    });
+  </script>
+</body>
+</html>
